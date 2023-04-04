@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -21,6 +23,10 @@ module.exports = {
       fontFamily: {
         rampart: ["Rampart One", "cursive"],
       },
+    },
+    screens: {
+      xs: "425px",
+      ...defaultTheme.screens,
     },
   },
   plugins: [],

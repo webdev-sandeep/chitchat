@@ -105,14 +105,14 @@ const ChatBox = () => {
       <div className="chatbox flex border-b border-gray-700 px-2 items-center h-12 bg-white rounded-ee">
         <input
           type="text"
-          className="w-11/12 focus-visible:outline-none placeholder:text-sm text-sm"
+          className="xl:w-11/12 md:w-5/6 w-2/3 focus-visible:outline-none placeholder:text-sm text-sm"
           placeholder="Type Something Here..."
           value={isMessageSending ? "" : text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <div
-          className="w-1/12 cursor-pointer bg-primaryGreen text-center rounded text-white text-sm py-1"
+          className="xl:w-1/12 md:w-1/6 w-1/3 cursor-pointer bg-primaryGreen text-center rounded text-white text-sm py-1"
           onClick={handleSend}
         >
           Send
