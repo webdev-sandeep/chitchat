@@ -11,8 +11,7 @@ import {
   Timestamp,
   serverTimestamp,
 } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { database, storage } from "../firebase";
+import { database } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { AuthContext } from "../context/AuthContext";
 
@@ -21,10 +20,11 @@ const ChatBox = () => {
   const { data } = useContext(ChatContext);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
-  const [image, setImage] = useState(null);
+  const [isMessageSending, setIsMessageSending] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSend = async () => {
+    setIsMessageSending(true);
     await updateDoc(doc(database, "chats", data?.chatId), {
       messages: arrayUnion({
         id: uuid(),
@@ -43,8 +43,7 @@ const ChatBox = () => {
       [data?.chatId + ".lastMessage"]: { message: text },
       [data?.chatId + ".date"]: serverTimestamp(),
     });
-
-    setImage(null);
+    setIsMessageSending(false);
     setText("");
   };
 
@@ -72,10 +71,8 @@ const ChatBox = () => {
         unsub();
       };
     };
-    if (data.chatId) {
-      fetchChat();
-    }
-  }, [data?.chatId]);
+    data.chatId && fetchChat();
+  }, [data?.chatId, messages]);
   return (
     <>
       <div className="chat-header flex border-b border-gray-700 px-2 items-center h-14 bg-white rounded-se">
@@ -89,7 +86,7 @@ const ChatBox = () => {
               <SenderMessage
                 message={message?.message}
                 time={timeSince(message?.date)}
-                avatar={currentUser?.photoURL}
+                avatar={currentUser?.photoURL ? currentUser.photoURL : ""}
                 key={message?.id}
               />
             );
@@ -98,7 +95,7 @@ const ChatBox = () => {
             <ReceiverMessage
               message={message?.message}
               time={timeSince(message?.date)}
-              avatar={data?.user?.photoURL}
+              avatar={data?.user?.photoURL ? data.user.photoURL : ""}
               key={message?.id}
             />
           );
@@ -110,7 +107,7 @@ const ChatBox = () => {
           type="text"
           className="w-11/12 focus-visible:outline-none placeholder:text-sm text-sm"
           placeholder="Type Something Here..."
-          value={text}
+          value={isMessageSending ? "" : text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyPress}
         />

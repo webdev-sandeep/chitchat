@@ -22,6 +22,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState(initialState);
+  const [isLoading, setIsLoading] = useState(false);
   const updateFormData = ({ field, value }) => {
     setFormData({ ...formData, [field]: value });
   };
@@ -38,6 +39,7 @@ const Register = () => {
     }
     try {
       // Create a new user account with email and password
+      setIsLoading(true);
       const response = await createUserWithEmailAndPassword(
         auth,
         formData.email,
@@ -73,10 +75,11 @@ const Register = () => {
             await setDoc(doc(database, "userChats", response?.user?.uid), {});
             // Navigate to the home page after successful sign up
             navigate("/");
+            setFormData(initialState); // Clear the form data after submission
+            setIsLoading(false);
           });
         }
       );
-      setFormData(initialState); // Clear the form data after submission
     } catch (error) {
       setError(error.message); // Set error message if any
     }
@@ -203,7 +206,174 @@ const Register = () => {
             className="px-8 py-2 rounded text-white bg-gray-800 w-full text-center my-4"
             onClick={handleFormSubmit}
           >
-            Signup
+            {isLoading ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                className="mx-auto"
+              >
+                <circle cx="12" cy="3" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale0"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="0;svgSpinners6DotsScale2.end-0.5s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="16.5" cy="4.21" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale1"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale0.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="7.5" cy="4.21" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale2"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale4.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="19.79" cy="7.5" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale3"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale1.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="4.21" cy="7.5" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale4"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale6.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="21" cy="12" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale5"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale3.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="3" cy="12" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale6"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale8.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="19.79" cy="16.5" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale7"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale5.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="4.21" cy="16.5" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale8"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScalea.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="16.5" cy="19.79" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScale9"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale7.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="7.5" cy="19.79" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScalea"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScaleb.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+                <circle cx="12" cy="21" r="0" fill="currentColor">
+                  <animate
+                    id="svgSpinners6DotsScaleb"
+                    fill="freeze"
+                    attributeName="r"
+                    begin="svgSpinners6DotsScale9.begin+0.1s"
+                    calcMode="spline"
+                    dur="0.6s"
+                    keySplines="0,1,0,1;.53,0,.61,.73"
+                    keyTimes="0;.2;1"
+                    values="0;2;0"
+                  />
+                </circle>
+              </svg>
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
         <p className="text-sm text-center">
