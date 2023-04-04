@@ -23,7 +23,7 @@ const Home = () => {
   };
   return (
     <div className="bg-gray-900 min-h-screen grid place-items-center">
-      <div className="w-[1000px]">
+      <div className="xl:w-[1000px] md:w-[800px]">
         {error && <p className="text-xs text-red-500 text-center">{error}</p>}
         <div className="app-container bg-white rounded flex h-[500px]">
           <div className="timeline-container w-72 rounded-s">
